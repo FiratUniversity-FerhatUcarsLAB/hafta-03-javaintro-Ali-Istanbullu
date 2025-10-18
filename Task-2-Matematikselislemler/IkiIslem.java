@@ -1,4 +1,4 @@
-public class deneme1 {
+public class IkiIslem {
 
 public static void main(String[] args) {
 
@@ -19,3 +19,4 @@ public static void main(String[] args) {
 
 
 }
+
