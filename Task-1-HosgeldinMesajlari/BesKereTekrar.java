@@ -1,4 +1,4 @@
-public class deneme1 {
+public class BesKereTekrar {
 
 public static void main(String[] args) {
 
