@@ -1,46 +1,56 @@
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-
 public class HesapOzeti {
 
     public static void main(String[] args) {
-        // Swing bileşenlerinin doğru çalışması için bu gereklidir
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                // 1. Pencereyi (JFrame) oluştur
-                JFrame frame = new JFrame("ALISVERIS LISTESI");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Pencere kapanınca program dursun
-                frame.setSize(500, 300); // Pencere boyutu
+        
+        // Sütun başlıkları ve veriler
+        String[] columnNames = {"URUN", "MIKTAR", "FIYAT"};
+        Object[][] data = {
+            {"ELMA", "1KG", "65TL"},
+            {"ARMUT", "2KG", "200TL"},
+            {"KIRAZ", "1KG", "500TL"},
+            {"SEFTALI", "3KG", "450TL"}
+        };
 
-                // 2. Tablo verilerini hazırla
-                // Sütun başlıkları
-                String[] columnNames = {"URUN", "MIKTAR", "FIYAT"};
+        // En uzun kelimelere göre sütun genişliklerini belirleyelim (elle yaptık)
+        int col1Width = 10;
+        int col2Width = 8;
+        int col3Width = 8;
 
-                // Satır verileri (2D Dizi)
-                Object[][] data = {
-                    {"ELMA", "1KG", "65TL"},
-                    {"ARMUT", "2KG", "200TL"},
-                    {"KIRAZ", "1KG", "500TL"},
-                    {"SEFTALI", "3KG", "450TL"}
-                    
-                };
+        // Ayırıcı çizgi için format
+        // +------------+----------+----------+
+        String separator = "+-" + "-".repeat(col1Width) + 
+                           "-+-" + "-".repeat(col2Width) + 
+                           "-+-" + "-".repeat(col3Width) + "-+";
 
-                // 3. JTable'ı oluştur
-                JTable table = new JTable(data, columnNames);
+        // Satır formatı: | %-10s | %-8s | %-8s |
+        // % : formatlama başlıyor
+        // - : sola yasla
+        // 10s : 10 karakterlik yer ayır (String için)
+        String rowFormat = "| %-" + col1Width + "s " +
+                           "| %-" + col2Width + "s " +
+                           "| %-" + col3Width + "s |";
 
-                // 4. JTable'ı bir JScrollPane içine koy (Kaydırma çubukları ekler)
-                // Tablolar genellikle çok satırlı olur, bu yüzden kaydırma çubuğu
-                // (JScrollPane) içine almak iyi bir pratiktir.
-                JScrollPane scrollPane = new JScrollPane(table);
+        
+        // --- Tabloyu Çizdirmeye Başla ---
 
-                // 5. ScrollPane'i (ve dolayısıyla tabloyu) pencereye ekle
-                frame.add(scrollPane);
+        // Başlık
+        System.out.println("     ALIŞVERİŞ LİSTESİ");
+        
+        // Üst ayırıcı
+        System.out.println(separator);
+        
+        // Sütun başlıkları
+        System.out.printf(rowFormat + "\n", columnNames[0], columnNames[1], columnNames[2]);
 
-                // 6. Pencereyi görünür yap
-                frame.setVisible(true);
-            }
-        });
+        // Başlık altı ayırıcı
+        System.out.println(separator);
+
+        // Veri satırları
+        for (Object[] row : data) {
+            System.out.printf(rowFormat + "\n", row[0], row[1], row[2]);
+        }
+
+        // Alt ayırıcı
+        System.out.println(separator);
     }
 }
